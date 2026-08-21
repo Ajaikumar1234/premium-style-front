@@ -62,7 +62,7 @@ const baseReviews = (names: string[]): Review[] =>
     verified: i % 4 !== 3,
   }));
 
-export const products: Product[] = [
+const curatedProducts: Product[] = [
   {
     id: "zara-pulse-pro",
     name: "Zara Pulse Pro ANC Earbuds",
@@ -247,6 +247,96 @@ export const products: Product[] = [
     reviews: baseReviews(["Gaurav T.", "Simran K.", "Neel A.", "Pooja W.", "Amit E."]),
   },
 ];
+
+/* ---- Generated catalogue (600+ SKUs) ---- */
+
+const SERIES = [
+  "Pulse", "Air", "SportBeat", "Luxe", "Core", "Studio", "Nova", "Vibe", "Echo", "Aura",
+  "Drift", "Flux", "Orbit", "Prime", "Sonic", "Wave", "Zen", "Halo", "Neo", "Volt",
+];
+const EDITIONS = [
+  "Pro", "Lite", "Max", "Plus", "Air", "Mini", "Ultra", "Edge", "One", "X",
+];
+const COLOURWAYS = [
+  { label: "Midnight Black", value: "black", img: 0 },
+  { label: "Cloud White", value: "white", img: 1 },
+  { label: "Deep Navy", value: "navy", img: 2 },
+  { label: "Rose Gold", value: "gold", img: 3 },
+];
+const IMGS = [black, white, blue, gold];
+const TAGLINES = [
+  "Adaptive noise cancellation for daily commutes",
+  "Featherweight buds tuned for long listening",
+  "Sweatproof fit built for training days",
+  "Hi-res certified sound in a metal shell",
+  "Balanced tuning with crystal-clear calling",
+  "Deep bass and low-latency gaming mode",
+];
+const DESCRIPTIONS = [
+  "Tuned in-house for warm mids and controlled bass, with a fit kit that seals without pressure.",
+  "A semi-open design keeps you aware of your surroundings while the drivers stay punchy.",
+  "Memory-alloy stability wings and an IP-rated shell keep the music going through every set.",
+  "Dual drivers and high-bitrate codecs preserve the detail your playlists were mastered with.",
+  "Quad microphones with wind reduction keep your voice clean on calls, indoors or out.",
+];
+const REVIEWERS = [
+  "Ananya R.", "Karthik M.", "Sneha P.", "Rohit V.", "Divya S.", "Meera J.", "Aditya K.",
+  "Farah N.", "Sameer T.", "Priya G.", "Nikhil B.", "Tanvi A.", "Imran Q.", "Lakshmi D.",
+  "Arjun S.", "Ishita M.", "Varun L.", "Naomi F.", "Rahul C.", "Zoya H.",
+];
+
+const generatedProducts: Product[] = Array.from({ length: 620 }, (_, i) => {
+  const series = SERIES[i % SERIES.length]!;
+  const edition = EDITIONS[Math.floor(i / SERIES.length) % EDITIONS.length]!;
+  const gen = 1 + (Math.floor(i / (SERIES.length * EDITIONS.length)) % 4);
+  const anc = i % 3 !== 2;
+  const price = 999 + ((i * 337) % 74) * 100;
+  const originalPrice = Math.round((price * (1.4 + ((i % 7) * 0.12))) / 10) * 10;
+  const rating = Math.round((3.7 + ((i * 13) % 13) / 10) * 10) / 10;
+  const c1 = COLOURWAYS[i % 4]!;
+  const c2 = COLOURWAYS[(i + 1 + (i % 2)) % 4]!;
+  const battery = 24 + ((i * 7) % 30);
+  const driver = [9, 10, 11, 12, 13][i % 5]!;
+  return {
+    id: `zara-${series.toLowerCase()}-${edition.toLowerCase()}-g${gen}-${i + 1}`,
+    name: `Zara ${series} ${edition} ${anc ? "ANC " : ""}Earbuds${gen > 1 ? ` Gen ${gen}` : ""}`,
+    brand: "Zara Audio",
+    tagline: TAGLINES[i % TAGLINES.length]!,
+    category: "Earbuds",
+    keywords: [
+      "earbuds", "wireless", "tws", "headphones", series.toLowerCase(), edition.toLowerCase(),
+      ...(anc ? ["anc", "noise cancelling"] : ["open", "lightweight"]),
+    ],
+    price,
+    originalPrice,
+    rating,
+    reviewCount: 180 + ((i * 971) % 14000),
+    stock: (i * 17) % 11 === 0 ? 0 : (i * 5) % 40,
+    images: [IMGS[c1.img]!, IMGS[c2.img]!],
+    variants: [
+      { label: c1.label, value: c1.value },
+      { label: c2.label, value: c2.value },
+    ],
+    highlights: [
+      anc ? `Hybrid ANC up to ${28 + (i % 18)}dB` : "Semi-open comfort fit",
+      `${battery}h total playtime with case`,
+      "ENC calling with quad mics",
+      `Low-latency ${45 + ((i * 3) % 30)}ms game mode`,
+    ],
+    description: DESCRIPTIONS[i % DESCRIPTIONS.length]!,
+    specs: [
+      { label: "Driver", value: `${driver}mm dynamic` },
+      { label: "Battery", value: `${6 + (i % 6)}h buds / ${battery}h with case` },
+      { label: "Charging", value: i % 3 === 0 ? "USB-C + Wireless" : "USB-C" },
+      { label: "Bluetooth", value: i % 2 === 0 ? "5.4 with multipoint" : "5.3" },
+      { label: "Water resistance", value: `IPX${[4, 5, 7][i % 3]}` },
+      { label: "Weight", value: `${(3.4 + ((i % 30) / 10)).toFixed(1)}g per bud` },
+    ],
+    reviews: baseReviews([0, 1, 2, 3, 4].map((k) => REVIEWERS[(i + k * 3) % REVIEWERS.length]!)),
+  };
+});
+
+export const products: Product[] = [...curatedProducts, ...generatedProducts];
 
 export const getProduct = (id: string) => products.find((p) => p.id === id);
 
