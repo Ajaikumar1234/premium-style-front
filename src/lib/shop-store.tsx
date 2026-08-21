@@ -88,7 +88,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
       const i = prev.findIndex((l) => l.productId === productId && l.variant === variant);
       if (i === -1) return [...prev, { productId, variant, qty }];
       const next = [...prev];
-      next[i] = { ...next[i], qty: Math.min(10, next[i].qty + qty) };
+      next[i] = { ...next[i]!, qty: Math.min(10, next[i]!.qty + qty) };
       return next;
     });
   }, []);

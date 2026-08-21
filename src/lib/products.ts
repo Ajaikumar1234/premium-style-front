@@ -43,22 +43,22 @@ const baseReviews = (names: string[]): Review[] =>
   names.map((n, i) => ({
     id: `r${i}`,
     author: n,
-    rating: [5, 4, 5, 3, 4][i % 5],
-    date: ["12 Aug 2026", "2 Aug 2026", "28 Jul 2026", "19 Jul 2026", "3 Jul 2026"][i % 5],
+    rating: [5, 4, 5, 3, 4][i % 5]!,
+    date: ["12 Aug 2026", "2 Aug 2026", "28 Jul 2026", "19 Jul 2026", "3 Jul 2026"][i % 5]!,
     title: [
       "Incredible sound for the price",
       "Battery life is the real winner",
       "Noise cancellation actually works",
       "Good, but the case scratches easily",
       "Comfortable for long calls",
-    ][i % 5],
+    ][i % 5]!,
     body: [
       "Bass is tight and vocals are clean. I switched from a pair costing twice as much and honestly do not miss them.",
       "Six days of commuting on a single case charge. The fast-charge top up genuinely gives hours from ten minutes.",
       "On a flight the engine hum just disappears. Transparency mode is natural enough to order coffee without removing them.",
       "Sound and fit are excellent, but the glossy case picks up marks within a week. Worth knowing before you buy.",
       "Wore them through a four hour workday of calls with zero ear fatigue. Mic clarity got compliments on Zoom.",
-    ][i % 5],
+    ][i % 5]!,
     verified: i % 4 !== 3,
   }));
 
